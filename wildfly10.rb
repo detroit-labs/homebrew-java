@@ -10,6 +10,32 @@ class Wildfly10 < Formula
     rm_f Dir["bin/*.bat"]
     rm_f Dir["bin/*.ps1"]
     libexec.install Dir["*"]
+    mkdir_p libexec/"standalone"/"log"
+  end
+
+  plist_options :startup => false
+
+  def plist; <<-EOS.undent
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>Label</key>
+      <string>#{plist_name}</string>
+      <key>KeepAlive</key>
+      <true/>
+      <key>ProgramArguments</key>
+      <array>
+        <string>#{opt_libexec}/bin/standalone.sh</string>
+      </array>
+      <key>EnvironmentVariables</key>
+      <dict>
+        <key>JBOSS_HOME</key>
+        <string>#{opt_libexec}</string>
+      </dict>
+    </dict>
+    </plist>
+    EOS
   end
 
   def caveats; <<-EOS.undent
