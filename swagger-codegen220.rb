@@ -6,6 +6,12 @@ class SwaggerCodegen220 < Formula
 
   conflicts_with "swagger-codegen", :because => "Only one version of swagger-codegen may be installed"
 
+  bottle do
+    root_url "https://detroit-labs--homebrew-java.s3.amazonaws.com"
+    cellar :any_skip_relocation
+    sha256 "4dee9b99bcc6369233d9c79011c991e01bd30f4543607935c7fca2bae6139234" => :el_capitan
+  end
+
   depends_on :java => "1.7+"
   depends_on "maven" => :build
 
